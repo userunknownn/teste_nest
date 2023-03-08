@@ -1,0 +1,24 @@
+on: 
+  push: 
+    branches: 
+    - main
+    
+jobs: 
+  deploy_app: 
+    name: deploy to beanstalk
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: compress source code 
+        run: zip -r test.zip . -x "*git*"
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: test_nest3
+          environment_name: test-nest3
+          version_label: ${{github.run_number}}
+          region: us-east-1b
+          deployment_package: test.zip
