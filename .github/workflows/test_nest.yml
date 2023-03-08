@@ -20,4 +20,5 @@ jobs:
           application_name: test_nest3
           environment_name: test-nest3
           version_label: ${{github.run_number}}
+          region: us-east-1
           deployment_package: test.zip
