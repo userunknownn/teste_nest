@@ -10,6 +10,8 @@ jobs:
     steps: 
       - name: Checkout source code
         uses: actions/checkout@v3
+      - name: test exclude some file or directory 
+        run: rm -rf .git 
       - name: compress source code 
         run: zip -r test.zip . -x "*git*"
       - name: Deploy to EB
